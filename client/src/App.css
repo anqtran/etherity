@@ -1,28 +1,34 @@
-.App {
-  text-align: center;
+img {
+  width: 100%;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.landing {
+  position: relative;
+  background: url('./img/giphygif.gif') no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  margin-top: -24px;
+  margin-bottom: -50px;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.landing-inner {
+  padding-top: 80px;
 }
 
-.App-title {
-  font-size: 1.5em;
+.card-form {
+  opacity: 0.9;
 }
 
-.App-intro {
-  font-size: large;
+.latest-profiles-img {
+  width: 40px;
+  height: 40px;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.form-control::placeholder {
+  color: #bbb !important;
+}
+
+html * {
+  font-family: 'Gill Sans', sans-serif;
 }
