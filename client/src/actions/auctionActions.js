@@ -51,7 +51,6 @@ export const getAuctions = () => dispatch => {
 
 // Get Auction
 export const getAuction = id => dispatch => {
-  console.log("call get auction");
   dispatch(setAuctionLoading());
   axios
     .get(`/api/auctions/${id}`)

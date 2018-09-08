@@ -12,12 +12,9 @@ class Auction extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    this.seller = this.props.auction.seller;
   }
 
   componentDidMount() {
-    console.log('did mount');
-    console.log(this.props.match.params.id);
     this.props.getAuction(this.props.match.params.id);
   }
 
@@ -33,15 +30,13 @@ class Auction extends Component {
 
   render() {
     const { auction, loading } = this.props.auction;
-    const currentDate = new Date();
-    const year = (currentDate.getMonth() === 11 && currentDate.getDate() > 23) ? currentDate.getFullYear() + 1 : currentDate.getFullYear();
 
     let auctionContent;
-    console.log(auction);
+    // console.log(auction);
     if (auction === null || loading || auction === '') {
       auctionContent = <Spinner />;
     } else {
-      // const seller = this.state.auction.seller;
+      console.log(auction);
       auctionContent = (
         <div>
           <div className="row">
@@ -61,7 +56,7 @@ class Auction extends Component {
 
               <p>{auction.description} </p>
 
-              {/* <p>Donated by {}</p> */}
+              <p>Donated by {auction.seller}</p>
               <p>To {auction.organization}</p>
             </div>
           </div>
@@ -113,12 +108,10 @@ class Auction extends Component {
 Auction.propTypes = {
   getAuction: PropTypes.func.isRequired,
   auction: PropTypes.object.isRequired
-  // seller: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   auction: state.auction
-  // seller: state.auction.seller
 });
 
 export default connect(
