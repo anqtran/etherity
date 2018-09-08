@@ -6,10 +6,13 @@ import postReducer from './postReducer';
 
 import auctionReducer from './auctionReducer';
 
+import organizationReducer from './organizationReducer';
+
 export default combineReducers({
   auth: authReducer,
   errors: errorReducer,
   profile: profileReducer,
   post: postReducer,
-  auction: auctionReducer
+  auction: auctionReducer,
+  organization: organizationReducer
 });

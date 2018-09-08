@@ -39,7 +39,7 @@ class Auction extends Component {
   render() {
     const { auction, loading } = this.props.aution;
     let auctionContent;
-    const { user } = this.props.oath.user;
+    // const { user } = this.props.oath.user;
 
     if (auction === null || loading) {
       auctionContent = <Spinner />;
