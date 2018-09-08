@@ -20,14 +20,16 @@ router.get('/test', (req, res) => res.json({ msg: 'Auctions work' }));
 router.get('/', (req, res) => {
   Auction.find()
     .sort({ date: -1 })
+    .populate('seller', ['name', 'avatar', 'email'])
+    .populate('organization', ['name'])
     .then(auctions => res.json(auctions))
     .catch(err =>
       res.status(404).json({ noauctionsfind: 'No auctions found' })
     );
 });
 
-// @route   GET api/posts/:id
-// @desc    Get post by id
+// @route   GET api/auctions/:id
+// @desc    Get auction by id
 // @access  Public
 router.get('/:id', (req, res) => {
   Auction.findById(req.params.id)
@@ -48,11 +50,9 @@ router.post('/create', (req, res) => {
     name: req.body.name,
     images: req.body.images,
     description: req.body.description,
-    short_description: req.body.description,
-    base_price: req.body.base_price,
-    bid: {
-      highestbid: req.body.base_price
-    }
+    shortDescription: req.body.shortDescription,
+    basePrice: req.body.basePrice,
+    organization: req.body.organization
   });
 
   newAuction
@@ -97,13 +97,17 @@ router.post(
 // @desc    new bid from user
 // @access  Public
 router.put('/bid/:auction_id', (req, res) => {
+  console.log('req.body => ',req.body);
   Auction.findById(req.params.auction_id)
     .then(auction => {
       if (req.body.highestbid <= auction.bid.highestbid) {
         return res.json({ biderrors: 'Bid cannot be lower than current bid' });
       }
-      auction.bid.highestbid = req.body.highestbid;
-      auction.bid.buyer = req.body.buyer;
+      const newBid = {
+        buyer : req.body.buyer,
+        highestbid : req.body.highestbid
+      }
+      auction.bid = newBid;
       auction.save().then(auction => res.json(auction));
     })
     .catch(err => console.log(err));
