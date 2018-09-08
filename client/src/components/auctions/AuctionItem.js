@@ -3,18 +3,17 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 // import isEmpty from '../../validation/is-empty';
 
-import ImageGallery from 'react-image-gallery';
+import Img from 'react-image'
 
 class AuctionItem extends Component {
   render() {
     const { auction } = this.props;
-    console.log('auction => ',auction);
     return (
       <div className="card card-body bg-light mb-3">
         <div className="row">
           <div className="col-2">
             {/* <img src={auction.user.avatar} alt="" className="rounded-circle" /> */}
-            <ImageGallery items={auction.images} />
+            <Img src= {auction.images} />
           </div>
           <div className="col-lg-6 col-md-4 col-8">
             <h3>{auction.name}</h3>

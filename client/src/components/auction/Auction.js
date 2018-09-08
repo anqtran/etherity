@@ -6,9 +6,13 @@ import Countdown from './Countdown.js';
 import Spinner from '../common/Spinner';
 import { getAuction } from '../../actions/auctionActions';
 
+<<<<<<< HEAD
 import TextFieldGroup from '../common/TextFieldGroup';
 
 import ImageGallery from 'react-image-gallery';
+=======
+import Img from 'react-image'
+>>>>>>> 2a3fde3a6aef14cc7f938e39308f78d658a0f239
 
 class Auction extends Component {
   constructor(props) {
@@ -81,7 +85,7 @@ class Auction extends Component {
             <div className="col-md-6" />
           </div>
           <div className="row">
-            <ImageGallery items={auction.images} />
+            <Img src= {auction.images} />
           </div>
           <div className="row">
             <div className="col-lg-6 col-md-4 col-8">
