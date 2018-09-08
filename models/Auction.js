@@ -4,25 +4,31 @@ const Schema = mongoose.Schema;
 // Create Schema
 const AuctionSchema = new Schema({
   user: {
-    type: Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,      //done
     ref: 'users'
   },
   name: {
+    type: String,                     //done
+    required: true
+  },
+  short_description: {                //done
     type: String,
     required: true
   },
-  description: {
+
+  description: {                      //done
     type: String,
     required: true
   },
+
   organization: {
     type: Schema.Types.ObjectId,
-    ref: 'user'
+    ref: 'organizations'
   },
   images: [
     {
       image: {
-        data: Buffer,
+        data: Buffer,                 //done
         contentType: String
       }
     }
