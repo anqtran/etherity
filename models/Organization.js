@@ -21,7 +21,7 @@ const OrganizationSchema = new Schema({
     type: String
   },
   description: {
-    type: String,
+    type: String
   },
   date: {
     type: Date,
@@ -33,4 +33,7 @@ const OrganizationSchema = new Schema({
   }
 });
 
-module.exports = Organization = mongoose.model('organizations', OrganizationSchema);
+module.exports = Organization = mongoose.model(
+  'organizations',
+  OrganizationSchema
+);

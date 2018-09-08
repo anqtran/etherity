@@ -37,13 +37,13 @@ router.get('/all', (req, res) => {
   const errors = {};
 
   Organization.find()
+    .populate('organization', ['name', '._id'])
     .then(organizations => {
       // if (!organizations) {
       //   errors.noorganization = 'There are no organizations';
       //   return res.status(404).json(errors);
       // }
-      // console.log('get all organizations ');
-      // console.log(organizations);
+
       res.json(organizations);
     })
     .catch(err => res.status(404).json({ profile: 'There are no profiles' }));

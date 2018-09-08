@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import TextFieldGroup from '../common/TextFieldGroup';
-import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
+
 import SelectListGroup from '../common/SelectListGroup';
 
 import { connect } from 'react-redux';
@@ -39,6 +39,7 @@ class AddAuction extends Component {
 
   componentDidMount() {
     // console.log('Here is props ' + this.props);
+    this.props.getOrganizations();
   }
 
   onSubmit(e) {
@@ -67,28 +68,19 @@ class AddAuction extends Component {
 
   render() {
     const { errors } = this.state;
+    const { organizations } = this.props.organization;
 
     // Select options for status
-    const options = [{ label: '* Select Organization', value: 0 }];
+    let options = [{ label: '* Select Organization', value: 0 }];
 
-    const orgOptions = this.props.getOrganizations();
-    console.log('console orgOptions');
-    console.log(orgOptions);
-    if (orgOptions) {
-      orgOptions.map(
-        org =>
-          function() {
-            const option = { label: org.name, value: org._id };
-            options.push(option);
-          }
-      );
-    } else {
-      options.push({
-        label: 'There are no available organizations',
-        value: 'no value'
+    if (organizations.length > 1) {
+      organizations.forEach(function(org) {
+        let option = { label: org.name, value: org._id };
+        options.push(option);
+        return;
       });
     }
-    console.log(options);
+    // console.log(options);
 
     return (
       <div className="add-auction">
@@ -172,11 +164,13 @@ class AddAuction extends Component {
 AddAuction.propTypes = {
   addAuction: PropTypes.func.isRequired,
   getOrganizations: PropTypes.func.isRequired,
+  organization: PropTypes.object.isRequired,
   auction: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
+  organization: state.organization,
   auction: state.auction,
   errors: state.errors
 });
