@@ -11,12 +11,17 @@ const OrganizationSchema = new Schema({
     type: String,
     required: true
   },
-  password: {
-    type: String,
-    required: true
-  },
   avatar: {
     type: String
+  },
+  phone: {
+    type: Number
+  },
+  website: {
+    type: String
+  },
+  description: {
+    type: String,
   },
   date: {
     type: Date,
