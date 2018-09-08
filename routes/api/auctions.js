@@ -36,10 +36,35 @@ router.post('/create', (req, res) => {
             .save()
             .then(auction => res.json(auction))
             .catch(err => console.log(err));
-
-
-
 });
+
+// @route   GET api/auctions/:id
+// @desc    Get auction by id
+// @access  Public
+router.get('/:id', (req, res) => {
+  Auction.findById(req.params.id)
+    .then(auction => res.json(auction))
+    .catch(err =>
+      res.status(404).json({ noauctionfound: 'No auction found with that ID' })
+    );
+});
+
+
+// @route   DELETE api/auctions/:id
+// @desc    Delete auction
+// @access  Private
+router.delete(
+  '/:id',
+  (req, res) => {
+      Auction.findById(req.params.id)
+        .then(auction => {
+
+          // Delete
+          auction.remove().then(() => res.json({ success: true }));
+        })
+        .catch(err => res.status(404).json({ auction: 'No auction found' }));
+  }
+);
 
 
 
@@ -63,6 +88,8 @@ router.put('/bid/:auction_id', (req, res) => {
 
 
 });
+
+
 
 
 module.exports = router;
