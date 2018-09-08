@@ -66,8 +66,8 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/profiles" component={Profiles} />
               <Route exact path="/auctions" component={Auctions} />
-              <Route exact path="/profile/:i" component={Profile} />
-              <Route exact path="/auction/:i" component={Auction} />
+              <Route exact path="/profile/:id" component={Profile} />
+              <Route exact path="/auction/:id" component={Auction} />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
               </Switch>
@@ -113,9 +113,6 @@ class App extends Component {
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/post/:id" component={Post} />
-              </Switch>
-              <Switch>
-                <PrivateRoute exact path="/auction/:id" component={Auction} />
               </Switch>
 
               <Route exact path="/not-found" component={NotFound} />

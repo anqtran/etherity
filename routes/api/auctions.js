@@ -32,8 +32,12 @@ router.get('/', (req, res) => {
 // @desc    Get auction by id
 // @access  Public
 router.get('/:id', (req, res) => {
+  console.log(req.params.id);
   Auction.findById(req.params.id)
-    .then(auction => res.json(auction))
+    .then(auction => {
+      console.log('auction => ',auction);
+      res.json(auction);
+    }) 
     .catch(err =>
       res.status(404).json({ noauctionfind: 'No auction found with that ID' })
     );

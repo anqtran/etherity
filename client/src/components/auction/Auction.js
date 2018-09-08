@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 // import ProfileCreds from './ProfileCreds';
 // import ProfileGithub from './ProfileGithub';
 import Spinner from '../common/Spinner';
-// import { getProfileByHandle } from '../../actions/profileActions';
 import { getAuction } from '../../actions/auctionActions';
 
 import ImageGallery from 'react-image-gallery';
@@ -20,9 +19,7 @@ class Auction extends Component {
   }
 
   componentDidMount() {
-    // if (this.props.match.params.handle) {
-    //   this.props.getAuctionByHandle(this.props.match.params.handle);
-    // }
+    console.log(this.props.match.params.id);
     this.props.getAuction(this.props.match.params.id);
   }
 
@@ -37,10 +34,8 @@ class Auction extends Component {
   }
 
   render() {
-    const { auction, loading } = this.props.aution;
+    const { auction, loading } = this.props.auction;
     let auctionContent;
-    const { user } = this.props.oath.user;
-
     if (auction === null || loading) {
       auctionContent = <Spinner />;
     } else {
@@ -63,7 +58,7 @@ class Auction extends Component {
 
               <p>{auction.description} </p>
 
-              <p>Donated by {auction.user.name}</p>
+              <p>Donated by {auction.seller.name}</p>
               <p>To {auction.organization}</p>
             </div>
           </div>
@@ -71,7 +66,7 @@ class Auction extends Component {
             <div className="col-lg-6 col-md-4 col-8">
               <div>Here is the cout down clock!!!!!!!!!!!!!!</div>
               {auction.bid ? (
-                <div>Highest Donator: {auction.bid.user} </div>
+                <div>Highest Donator: {auction.bid.buyer} </div>
               ) : null}
             </div>
             <div className="col-lg-6 col-md-4 col-8">
