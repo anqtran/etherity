@@ -14,6 +14,29 @@ const validateAuctionInput = require('../../validation/auction');
 // @access  Public
 router.get('/test', (req, res) => res.json({ msg: 'Auctions work' }));
 
+// @route   GET api/auctions
+// @desc    Get auctions
+// @access  Public
+router.get('/', (req, res) => {
+  Auction.find()
+    .sort({ date: -1 })
+    .then(auctions => res.json(auctions))
+    .catch(err =>
+      res.status(404).json({ noauctionsfind: 'No auctions found' })
+    );
+});
+
+// @route   GET api/posts/:id
+// @desc    Get post by id
+// @access  Public
+router.get('/:id', (req, res) => {
+  Auction.findById(req.params.id)
+    .then(auction => res.json(auction))
+    .catch(err =>
+      res.status(404).json({ noauctionfind: 'No auction found with that ID' })
+    );
+});
+
 // @route   POST api/auctions/create
 // @desc    Register user
 // @access  Public
@@ -85,5 +108,4 @@ router.put('/bid/:auction_id', (req, res) => {
     })
     .catch(err => console.log(err));
 });
-
 module.exports = router;
