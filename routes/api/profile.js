@@ -62,7 +62,6 @@ router.get('/all', (req, res) => {
 // @route   GET api/profile/handle/:handle
 // @desc    Get profile by handle
 // @access  Public
-
 router.get('/handle/:handle', (req, res) => {
   const errors = {};
 

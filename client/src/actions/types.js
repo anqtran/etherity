@@ -11,3 +11,10 @@ export const GET_POSTS = 'GET_POSTS';
 export const GET_POST = 'GET_POST';
 export const ADD_POST = 'ADD_POST';
 export const DELETE_POST = 'DELETE_POST';
+
+export const GET_AUCTION = 'GET_AUCTION';
+export const GET_AUCTIONS = 'GET_AUCTIONS';
+export const AUCTION_LOADING = 'AUCTION_LOADING';
+export const CLEAR_CURRENT_AUCTION = 'CLEAR_CURRENT_AUCTION';
+export const ADD_AUCTION = 'ADD_AUCTION';
+export const DELETE_AUCTION = 'DELETE_AUCTION';

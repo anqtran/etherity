@@ -2,40 +2,41 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Spinner from '../common/Spinner';
-import ProfileItem from './ProfileItem';
-import { getProfiles } from '../../actions/auctionActions';
+// import ProfileItem from './ProfileItem';
 
-class Profiles extends Component {
+import { getAuctions } from '../../actions/auctionActions';
+
+import AuctionItem from './AuctionItem';
+
+class Auctions extends Component {
   componentDidMount() {
     this.props.getAuctions();
   }
 
   render() {
-    const { profiles, loading } = this.props.profile;
-    let profileItems;
+    const { auctions, loading } = this.props.auction;
+    let auctionItems;
 
-    if (profiles === null || loading) {
-      profileItems = <Spinner />;
+    if (auctions === null || loading) {
+      auctionItems = <Spinner />;
     } else {
-      if (profiles.length > 0) {
-        profileItems = profiles.map(profile => (
-          <ProfileItem key={profile._id} profile={profile} />
+      if (auctions.length > 0) {
+        auctionItems = auctions.map(auction => (
+          <AuctionItem key={auction._id} auction={auction} />
         ));
       } else {
-        profileItems = <h4>No profiles found...</h4>;
+        auctionItems = <h4>No auctions available...</h4>;
       }
     }
 
     return (
-      <div className="profiles">
+      <div className="auctions">
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <h1 className="display-4 text-center">Developer Profiles</h1>
-              <p className="lead text-center">
-                Browse and connect with developers
-              </p>
-              {profileItems}
+              <h1 className="display-4 text-center">Auction Gallery</h1>
+              <p className="lead text-center">GIVING is RECEIVING</p>
+              {auctionItems}
             </div>
           </div>
         </div>
@@ -44,16 +45,16 @@ class Profiles extends Component {
   }
 }
 
-Profiles.propTypes = {
-  getProfiles: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+Auctions.propTypes = {
+  getAuctions: PropTypes.func.isRequired,
+  auction: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  auction: state.auction
 });
 
 export default connect(
   mapStateToProps,
-  { getProfiles }
-)(Profiles);
+  { getAuctions }
+)(Auctions);

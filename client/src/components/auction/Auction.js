@@ -1,44 +1,106 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// import PostItem from '../posts/PostItem';
-// import CommentForm from './CommentForm';
-// import CommentFeed from './CommentFeed';
+import { Link } from 'react-router-dom';
+// import ProfileHeader from './ProfileHeader';
+// import ProfileAbout from './ProfileAbout';
+// import ProfileCreds from './ProfileCreds';
+// import ProfileGithub from './ProfileGithub';
 import Spinner from '../common/Spinner';
-import { getPost } from '../../actions/postActions';
+// import { getProfileByHandle } from '../../actions/profileActions';
+import { getAuction } from '../../actions/auctionActions';
+
+import ImageGallery from 'react-image-gallery';
 
 class Auction extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
   componentDidMount() {
-    this.props.getPost(this.props.match.params.id);
+    // if (this.props.match.params.handle) {
+    //   this.props.getAuctionByHandle(this.props.match.params.handle);
+    // }
+    this.props.getAuction(this.props.match.params.id);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auction.profile === null && this.props.auction.loading) {
+      this.props.history.push('/not-found');
+    }
+  }
+
+  handleChange(e) {
+    this.setState({ value: e.target.value });
   }
 
   render() {
-    const { post, loading } = this.props.post;
-    let postContent;
+    const { auction, loading } = this.props.aution;
+    let auctionContent;
+    const { user } = this.props.oath.user;
 
-    if (post === null || loading || Object.keys(post).length === 0) {
-      postContent = <Spinner />;
+    if (auction === null || loading) {
+      auctionContent = <Spinner />;
     } else {
-      postContent = (
+      auctionContent = (
         <div>
-          <PostItem post={post} showActions={false} />
-          <CommentForm postId={post._id} />
-          <CommentFeed postId={post._id} comments={post.comments} />
+          <div className="row">
+            <div className="col-md-6">
+              <Link to="/profiles" className="btn btn-light mb-3 float-left">
+                Back To Gallery
+              </Link>
+            </div>
+            <div className="col-md-6" />
+          </div>
+          <div className="row">
+            <ImageGallery items={auction.images} />
+          </div>
+          <div className="row">
+            <div className="col-lg-6 col-md-4 col-8">
+              <h3>{auction.name}</h3>
+
+              <p>{auction.description} </p>
+
+              <p>Donated by {auction.user.name}</p>
+              <p>To {auction.organization}</p>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-lg-6 col-md-4 col-8">
+              <div>Here is the cout down clock!!!!!!!!!!!!!!</div>
+              {auction.bid ? (
+                <div>Highest Donator: {auction.bid.user} </div>
+              ) : null}
+            </div>
+            <div className="col-lg-6 col-md-4 col-8">
+              <label>
+                Donate
+                <input
+                  type="number"
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                />
+              </label>
+
+              <Link
+                to={`/bid/${auction.handle}/${this.state.value}`}
+                className="btn btn-secondary"
+              >
+                Donate
+              </Link>
+            </div>
+          </div>
         </div>
       );
     }
 
     return (
-      <div className="post">
+      <div className="auction">
         <div className="container">
           <div className="row">
-            <div className="col-md-12">
-              <Link to="/feed" className="btn btn-light mb-3">
-                Back To Feed
-              </Link>
-              {postContent}
-            </div>
+            <div className="col-md-12">{auctionContent}</div>
           </div>
         </div>
       </div>
@@ -47,15 +109,15 @@ class Auction extends Component {
 }
 
 Auction.propTypes = {
-  getPost: PropTypes.func.isRequired,
-  post: PropTypes.object.isRequired
+  getAuction: PropTypes.func.isRequired,
+  auction: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  post: state.post
+  auction: state.auction
 });
 
 export default connect(
   mapStateToProps,
-  { getPost }
+  { getAuction }
 )(Auction);

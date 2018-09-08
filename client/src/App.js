@@ -26,6 +26,9 @@ import Posts from './components/posts/Posts';
 import Post from './components/post/Post';
 import NotFound from './components/not-found/NotFound';
 
+import Auction from './components/auction/Auction';
+import Auctions from './components/auctions/Auctions';
+
 import './App.css';
 
 // Check for token
@@ -61,7 +64,9 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/profiles" component={Profiles} />
+              <Route exact path="/auctions" component={Auctions} />
               <Route exact path="/profile/:handle" component={Profile} />
+              <Route exact path="/auction/:handle" component={Auction} />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
               </Switch>
@@ -99,6 +104,10 @@ class App extends Component {
               <Switch>
                 <PrivateRoute exact path="/post/:id" component={Post} />
               </Switch>
+              <Switch>
+                <PrivateRoute exact path="/auction/:id" component={Auction} />
+              </Switch>
+
               <Route exact path="/not-found" component={NotFound} />
             </div>
             <Footer />

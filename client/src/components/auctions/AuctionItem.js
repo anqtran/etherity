@@ -18,34 +18,19 @@ class AuctionItem extends Component {
           </div>
           <div className="col-lg-6 col-md-4 col-8">
             <h3>{auction.name}</h3>
-            <p>
-              {auction.status}{' '}
-              {isEmpty(auction.company) ? null : (
-                <span>at {auction.company}</span>
-              )}
-            </p>
-            <p>
-              {isEmpty(auction.location) ? null : (
-                <span>{auction.location}</span>
-              )}
-            </p>
+
+            <p>{auction.shortDescription} </p>
+
+            <p>Donated by {auction.user.name}</p>
+          </div>
+          <div className="col-md-4 d-none d-md-block">
+            <h4>Special For {auction.organization} </h4>
             <Link
               to={`/auction/${auction.handle}`}
               className="btn btn-secondary"
             >
-              View auction
+              More Detail
             </Link>
-          </div>
-          <div className="col-md-4 d-none d-md-block">
-            <h4>Skill Set</h4>
-            <ul className="list-group">
-              {auction.skills.slice(0, 4).map((skill, index) => (
-                <li key={index} className="list-group-item">
-                  <i className="fa fa-check pr-1" />
-                  {skill}
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       </div>
