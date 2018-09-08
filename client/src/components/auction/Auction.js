@@ -14,11 +14,12 @@ import ImageGallery from 'react-image-gallery';
 class Auction extends Component {
   constructor(props) {
     super(props);
-
     this.handleChange = this.handleChange.bind(this);
+    this.seller = this.props.auction.seller;
   }
 
   componentDidMount() {
+    console.log('did mount');
     console.log(this.props.match.params.id);
     this.props.getAuction(this.props.match.params.id);
   }
@@ -35,10 +36,14 @@ class Auction extends Component {
 
   render() {
     const { auction, loading } = this.props.auction;
+    // const { seller } = this.props.auction.seller;
+
     let auctionContent;
-    if (auction === null || loading) {
+    console.log(auction);
+    if (auction === null || loading || auction === '') {
       auctionContent = <Spinner />;
     } else {
+      // const seller = this.state.auction.seller;
       auctionContent = (
         <div>
           <div className="row">
@@ -58,33 +63,36 @@ class Auction extends Component {
 
               <p>{auction.description} </p>
 
-              <p>Donated by {auction.seller.name}</p>
+              {/* <p>Donated by {}</p> */}
               <p>To {auction.organization}</p>
             </div>
           </div>
           <div className="row">
             <div className="col-lg-6 col-md-4 col-8">
-              <div>Here is the cout down clock!!!!!!!!!!!!!!</div>
+              <div>Here is the count down clock!!!!!!!!!!!!!!</div>
               {auction.bid ? (
                 <div>Highest Donator: {auction.bid.buyer} </div>
               ) : null}
             </div>
             <div className="col-lg-6 col-md-4 col-8">
               <label>
-                Donate
-                <input
+                {/* <h6 />
+                <TextFieldGroup
+                  placeholder="* Initial Price"
+                  name="basePrice"
                   type="number"
-                  value={this.state.value}
-                  onChange={this.handleChange}
-                />
+                  value={this.state.basePrice}
+                  onChange={this.onChange}
+                  error={errors.basePrice}
+                /> */}
               </label>
 
-              <Link
+              {/* <Link
                 to={`/bid/${auction.handle}/${this.state.value}`}
                 className="btn btn-secondary"
               >
                 Donate
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>
@@ -106,10 +114,12 @@ class Auction extends Component {
 Auction.propTypes = {
   getAuction: PropTypes.func.isRequired,
   auction: PropTypes.object.isRequired
+  // seller: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   auction: state.auction
+  // seller: state.auction.seller
 });
 
 export default connect(

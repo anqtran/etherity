@@ -15,7 +15,6 @@ class Auctions extends Component {
 
   render() {
     const { auctions, loading } = this.props.auction;
-    {auctions}
     let auctionItems;
 
     if (auctions === null || loading) {

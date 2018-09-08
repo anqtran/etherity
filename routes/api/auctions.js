@@ -34,12 +34,13 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   console.log(req.params.id);
   Auction.findById(req.params.id)
-  .populate('seller', ['name', 'avatar', 'email'])
-  .populate('organization', ['name'])
+    .populate('seller', ['name', 'avatar', 'email'])
+    // .populate('organization', ['name'])
     .then(auction => {
-      console.log('auction => ',auction);
+      console.log('auction => ', auction);
+
       res.json(auction);
-    }) 
+    })
     .catch(err =>
       res.status(404).json({ noauctionfind: 'No auction found with that ID' })
     );
@@ -103,16 +104,16 @@ router.post(
 // @desc    new bid from user
 // @access  Public
 router.put('/bid/:auction_id', (req, res) => {
-  console.log('req.body => ',req.body);
+  console.log('req.body => ', req.body);
   Auction.findById(req.params.auction_id)
     .then(auction => {
       if (req.body.highestbid <= auction.bid.highestbid) {
         return res.json({ biderrors: 'Bid cannot be lower than current bid' });
       }
       const newBid = {
-        buyer : req.body.buyer,
-        highestbid : req.body.highestbid
-      }
+        buyer: req.body.buyer,
+        highestbid: req.body.highestbid
+      };
       auction.bid = newBid;
       auction.save().then(auction => res.json(auction));
     })
