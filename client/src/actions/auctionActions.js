@@ -12,7 +12,9 @@ import {
 
 // Add Auction
 export const addAuction = auctionData => dispatch => {
+  console.log('here is auctionactions.js');
   dispatch(clearErrors());
+  console.log();
   axios
     .post('/api/auctions/add', auctionData)
     .then(res =>

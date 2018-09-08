@@ -2,23 +2,28 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
+import SelectListGroup from '../common/SelectListGroup';
+
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addAuction } from '../../actions/auctionActions';
+
+import { getOrganizations } from '../../actions/organizationActions';
 
 class AddAuction extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: '',
-      shortDescription: '',
-      basePrice: '',
-      description: '',
       organization: '',
-      seller: '',
+      shortDescription: '',
+      description: '',
+      basePrice: '',
+
+      // seller: '',
       images: [],
-      bid: {},
-      time: Date,
+      // bid: {},
+      // time: Date,
       errors: {}
     };
 
@@ -32,8 +37,13 @@ class AddAuction extends Component {
     }
   }
 
+  componentDidMount() {
+    // console.log('Here is props ' + this.props);
+  }
+
   onSubmit(e) {
     e.preventDefault();
+    // console.log(this.props.history);
 
     const auctData = {
       name: this.state.name,
@@ -41,12 +51,13 @@ class AddAuction extends Component {
       basePrice: this.state.basePrice,
       description: this.state.description,
       organization: this.state.organization,
-      seller: this.state.seller,
-      images: this.state.images,
-      bid: this.state.bid,
-      time: this.state.time
+      // seller: this.state.user,
+      images: this.state.images
+      // bid: this.state.bid,
+      // time: this.state.time
     };
-    // console.log('HEre is   ' + auctData);
+    // console.log('Here is sending)');
+    // console.log(auctData);
     this.props.addAuction(auctData);
   }
 
@@ -56,6 +67,28 @@ class AddAuction extends Component {
 
   render() {
     const { errors } = this.state;
+
+    // Select options for status
+    const options = [{ label: '* Select Organization', value: 0 }];
+
+    const orgOptions = this.props.getOrganizations();
+    console.log('console orgOptions');
+    console.log(orgOptions);
+    if (orgOptions) {
+      orgOptions.map(
+        org =>
+          function() {
+            const option = { label: org.name, value: org._id };
+            options.push(option);
+          }
+      );
+    } else {
+      options.push({
+        label: 'There are no available organizations',
+        value: 'no value'
+      });
+    }
+    console.log(options);
 
     return (
       <div className="add-auction">
@@ -80,12 +113,21 @@ class AddAuction extends Component {
                   error={errors.name}
                 />
                 <h6>For Organization</h6>
-                <TextFieldGroup
+                {/* <TextFieldGroup
                   placeholder="* For Organization"
                   name="organization"
                   value={this.state.organization}
                   onChange={this.onChange}
                   error={errors.organization}
+                /> */}
+                <SelectListGroup
+                  placeholder="For Organization"
+                  name="organization"
+                  value={this.state.organization}
+                  onChange={this.onChange}
+                  options={options}
+                  error={errors.organization}
+                  info="Organization you want to donate to"
                 />
                 <h6>Base Price</h6>
                 <TextFieldGroup
@@ -129,6 +171,7 @@ class AddAuction extends Component {
 
 AddAuction.propTypes = {
   addAuction: PropTypes.func.isRequired,
+  getOrganizations: PropTypes.func.isRequired,
   auction: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -140,5 +183,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addAuction }
+  { addAuction, getOrganizations }
 )(withRouter(AddAuction));

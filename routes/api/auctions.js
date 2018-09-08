@@ -46,21 +46,23 @@ router.post(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const { errors, isValid } = validateAuctionInput(req.body);
-
+    console.log('after validate');
     // Check Validation
     if (!isValid) {
       // If any errors, send 400 with errors object
       return res.status(400).json(errors);
     }
-
+    console.log('there is no error to add auction');
     const newAuction = new Auction({
-      seller: req.body.seller,
+      seller: req.user.id,
       name: req.body.name,
+      organization: req.body.organization,
       images: req.body.images,
       description: req.body.description,
       shortDescription: req.body.shortDescription,
       basePrice: req.body.basePrice
     });
+    console.log(newAuction);
     newAuction
       .save()
       .then(auction => res.json(auction))
@@ -84,10 +86,4 @@ router.put('/bid/:auction_id', (req, res) => {
     .catch(err => console.log(err));
 });
 
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> aba999931723a3d91e92bdec33f7a7891ca5337a
 module.exports = router;
