@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+mongoose.set('useCreateIndex', true);
 // Create Schema
 const AuctionSchema = new Schema({
-  user: {
-    type: Schema.Types.ObjectId,      //done
-    ref: 'users'
+
+  seller: {
+    type: Schema.Types.ObjectId,
+    ref: 'users',
+    required: true
   },
   name: {
     type: String,                     //done
@@ -38,11 +41,11 @@ const AuctionSchema = new Schema({
     required: true
   },
   bid: {
-    user: {
+    buyer : {
       type: Schema.Types.ObjectId,
       ref: 'users'
     },
-    price: {
+    highestbid: {
       type: Number,
       required: true
     },
