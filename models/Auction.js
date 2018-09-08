@@ -22,22 +22,20 @@ const AuctionSchema = new Schema({
     type: Number,
     required: true
   },
-  bid: [
-    {
-      user: {
-        type: Schema.Types.ObjectId,
-        ref: 'users'
-      },
-      price: {
-        type: Number,
-        required: true
-      },
-      date: {
-        type: Date,
-        default: Date.now
-      }
+  bid: {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'users'
+    },
+    price: {
+      type: Number,
+      required: true
+    },
+    date: {
+      type: Date,
+      default: Date.now
     }
-  ],
+  },
   date: {
     type: Date,
     default: Date.now
