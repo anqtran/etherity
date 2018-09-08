@@ -15,6 +15,10 @@ const ProfileActions = () => {
         <i className="fas fa-graduation-cap text-secondary mr-1" />
         Add Education
       </Link>
+      <Link to="/add-auction" className="btn btn-light">
+        <i className="fas fa-hand-holding-usd text-secondary mr-1" />
+        Add Auction
+      </Link>
     </div>
   );
 };

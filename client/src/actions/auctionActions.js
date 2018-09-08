@@ -14,7 +14,7 @@ import {
 export const addAuction = auctionData => dispatch => {
   dispatch(clearErrors());
   axios
-    .post('/api/auctions', auctionData)
+    .post('/api/auctions/add', auctionData)
     .then(res =>
       dispatch({
         type: ADD_AUCTION,

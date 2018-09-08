@@ -4,50 +4,54 @@ const Schema = mongoose.Schema;
 mongoose.set('useCreateIndex', true);
 // Create Schema
 const AuctionSchema = new Schema({
-
   seller: {
     type: Schema.Types.ObjectId,
     ref: 'users',
     required: true
   },
+
   name: {
-    type: String,                     //done
+    type: String, //done
     required: true
   },
-  short_description: {                //done
+
+  shortDescription: {
+    //done
     type: String,
     required: true
   },
 
-  description: {                      //done
+  description: {
+    //done
     type: String,
     required: true
   },
 
   organization: {
     type: Schema.Types.ObjectId,
-    ref: 'organizations'
+    ref: 'organizations',
+    required: true
   },
+
   images: [
     {
       image: {
-        data: Buffer,                 //done
+        data: Buffer, //done
         contentType: String
       }
     }
   ],
-  base_price: {
+  basePrice: {
     type: Number,
     required: true
   },
   bid: {
-    buyer : {
+    buyer: {
       type: Schema.Types.ObjectId,
       ref: 'users'
     },
     highestbid: {
-      type: Number,
-      required: true
+      type: Number
     },
     date: {
       type: Date,

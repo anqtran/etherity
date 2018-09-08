@@ -28,6 +28,7 @@ import NotFound from './components/not-found/NotFound';
 
 import Auction from './components/auction/Auction';
 import Auctions from './components/auctions/Auctions';
+import AddAuction from './components/add-auction/AddAuction';
 
 import './App.css';
 
@@ -98,6 +99,15 @@ class App extends Component {
                   component={AddEducation}
                 />
               </Switch>
+
+              <Switch>
+                <PrivateRoute
+                  exact
+                  path="/add-auction"
+                  component={AddAuction}
+                />
+              </Switch>
+
               <Switch>
                 <PrivateRoute exact path="/feed" component={Posts} />
               </Switch>

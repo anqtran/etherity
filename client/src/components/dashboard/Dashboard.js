@@ -8,6 +8,8 @@ import ProfileActions from './ProfileActions';
 import Experience from './Experience';
 import Education from './Education';
 
+// import Auction from './Auction';
+
 class Dashboard extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
@@ -36,6 +38,7 @@ class Dashboard extends Component {
             <ProfileActions />
             <Experience experience={profile.experience} />
             <Education education={profile.education} />
+            {/* <Auction auction={profile.auction} /> */}
             <div style={{ marginBottom: '60px' }} />
             <button
               onClick={this.onDeleteClick.bind(this)}
