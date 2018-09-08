@@ -83,11 +83,4 @@ router.put('/bid/:auction_id', (req, res) => {
     })
     .catch(err => console.log(err));
 });
-
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> aba999931723a3d91e92bdec33f7a7891ca5337a
 module.exports = router;
