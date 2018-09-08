@@ -7,6 +7,10 @@ const AuctionSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'users'
   },
+  name: {
+    type: String,
+    required: true
+  },
   description: {
     type: String,
     required: true
@@ -15,9 +19,14 @@ const AuctionSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'user'
   },
-  avatar: {
-    type: String
-  },
+  images: [
+    {
+      image: {
+        data: Buffer,
+        contentType: String
+      }
+    }
+  ],
   base_price: {
     type: Number,
     required: true
