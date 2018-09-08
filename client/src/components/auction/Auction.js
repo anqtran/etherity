@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-// import ProfileHeader from './ProfileHeader';
-// import ProfileAbout from './ProfileAbout';
-// import ProfileCreds from './ProfileCreds';
-// import ProfileGithub from './ProfileGithub';
+import Countdown from './Countdown.js';
 import Spinner from '../common/Spinner';
 import { getAuction } from '../../actions/auctionActions';
 
@@ -36,7 +33,8 @@ class Auction extends Component {
 
   render() {
     const { auction, loading } = this.props.auction;
-    // const { seller } = this.props.auction.seller;
+    const currentDate = new Date();
+    const year = (currentDate.getMonth() === 11 && currentDate.getDate() > 23) ? currentDate.getFullYear() + 1 : currentDate.getFullYear();
 
     let auctionContent;
     console.log(auction);
@@ -70,6 +68,7 @@ class Auction extends Component {
           <div className="row">
             <div className="col-lg-6 col-md-4 col-8">
               <div>Here is the count down clock!!!!!!!!!!!!!!</div>
+              <Countdown date={`${year}-12-24T00:00:00`} />
               {auction.bid ? (
                 <div>Highest Donator: {auction.bid.buyer} </div>
               ) : null}
