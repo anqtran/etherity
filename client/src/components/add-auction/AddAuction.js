@@ -19,9 +19,8 @@ class AddAuction extends Component {
       shortDescription: '',
       description: '',
       basePrice: '',
-
       // seller: '',
-      images: [],
+      images: '',
       // bid: {},
       // time: Date,
       errors: {}
@@ -44,8 +43,6 @@ class AddAuction extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    // console.log(this.props.history);
-
     const auctData = {
       name: this.state.name,
       shortDescription: this.state.shortDescription,
@@ -60,6 +57,7 @@ class AddAuction extends Component {
     // console.log('Here is sending)');
     // console.log(auctData);
     this.props.addAuction(auctData);
+    
   }
 
   onChange(e) {
@@ -143,6 +141,14 @@ class AddAuction extends Component {
                   placeholder="* Detail Description"
                   name="description"
                   value={this.state.description}
+                  onChange={this.onChange}
+                  error={errors.description}
+                />
+                <h6>Image URL</h6>
+                <TextFieldGroup
+                  placeholder="*Image URL"
+                  name="images"
+                  value={this.state.images}
                   onChange={this.onChange}
                   error={errors.description}
                 />
