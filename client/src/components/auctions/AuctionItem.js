@@ -8,7 +8,7 @@ import ImageGallery from 'react-image-gallery';
 class AuctionItem extends Component {
   render() {
     const { auction } = this.props;
-
+    console.log('auction => ',auction);
     return (
       <div className="card card-body bg-light mb-3">
         <div className="row">
@@ -21,12 +21,12 @@ class AuctionItem extends Component {
 
             <p>{auction.shortDescription} </p>
 
-            <p>Donated by {auction.user.name}</p>
+            <p>Donated by {auction.seller.name}</p>
           </div>
           <div className="col-md-4 d-none d-md-block">
-            <h4>Special For {auction.organization} </h4>
+            <h4>Special For {auction.organization.name} </h4>
             <Link
-              to={`/auction/${auction.handle}`}
+              to={`/auction/${auction._id}`}
               className="btn btn-secondary"
             >
               More Detail

@@ -35,10 +35,7 @@ const AuctionSchema = new Schema({
 
   images: [
     {
-      image: {
-        data: Buffer, //done
-        contentType: String
-      }
+      type: String
     }
   ],
   basePrice: {
