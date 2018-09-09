@@ -80,7 +80,7 @@ class AddAuction extends Component {
     // Select options for status
     let options = [{ label: '* Select Organization', value: 0 }];
 
-    if (organizations.length > 1) {
+    if (organizations.length > 0) {
       organizations.forEach(function(org) {
         let option = { label: org.name, value: org._id };
         options.push(option);
