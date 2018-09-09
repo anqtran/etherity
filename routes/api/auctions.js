@@ -154,7 +154,7 @@ router.post(
 // //     .catch(err => console.log(err));
 // // });
 
-router.put('/bid/:auction_id', (req, res) => {
+router.put('/bid/:id', (req, res) => {
   console.log('bid update');
   const time = new Date.now();
   var auctionFields = {
@@ -162,9 +162,24 @@ router.put('/bid/:auction_id', (req, res) => {
     highestbid: req.body.highestbid,
     dateLastBid: time
   };
-  // console.log('auct => ', auct);
-  Auction.findOneAndUpdate({ _id: req.params.id }, auctionFields)
-    .then(auction => res.json(auction))
+  Auction.findOne({_id: req.params.id}). then (auction => {
+    console.log('auction1 => ',auction);
+    if(auction) {
+      Auction.findOneAndUpdate(
+        {_id: req.params.id},
+        {$set: auctionFields},
+        {new: true} 
+      ).then(auction => {
+      console.log('auction => ',auction);
+      res.json(auction)})
     .catch(err => console.log(err));
+    }
+  })
+  // // console.log('auct => ', auct);
+  // Auction.findOneAndUpdate({_id: req.params.id }, auctionFields)
+  //   .then(auction => {
+  //     console.log('auction => ',auction);
+  //     res.json(auction)})
+  //   .catch(err => console.log(err));
 });
 module.exports = router;
