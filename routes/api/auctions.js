@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
-
 const User = require('../../models/User');
 const Auction = require('../../models/Auction');
 
@@ -46,7 +45,6 @@ router.get('/:id', (req, res) => {
     //   'description'
     // ])
     .then(auction => {
-      console.log('get auction by id => ', auction);
       res.json(auction);
     })
     .catch(err =>
@@ -82,9 +80,8 @@ router.post('/create', (req, res) => {
 router.post(
   '/add',
   passport.authenticate('jwt', { session: false }),
-  (req, res) => {
+  async(req, res) => {
     const { errors, isValid } = validateAuctionInput(req.body);
-    console.log('after validate');
     // Check Validation
     if (!isValid) {
       // If any errors, send 400 with errors object
@@ -100,10 +97,13 @@ router.post(
       shortDescription: req.body.shortDescription,
       basePrice: req.body.basePrice
     });
-    console.log(newAuction);
+    
     newAuction
       .save()
-      .then(auction => res.json(auction))
+      .then(auction =>{
+        console.log('auction.id => ',auction.id);
+        res.json(auction)
+      })
       .catch(err => console.log(err));
   }
 );
@@ -156,25 +156,27 @@ router.post(
 
 router.put('/bid/:id', (req, res) => {
   console.log('bid update');
-  const time = new Date.now();
+  const time = new Date();
   var auctionFields = {
     buyer: req.body.buyer,
     highestbid: req.body.highestbid,
     dateLastBid: time
   };
-  Auction.findOne({_id: req.params.id}). then (auction => {
-    console.log('auction1 => ',auction);
-    if(auction) {
+  Auction.findOne({ _id: req.params.id }).then(auction => {
+    // console.log('auction1 => ', auction);
+    if (auction) {
       Auction.findOneAndUpdate(
-        {_id: req.params.id},
-        {$set: auctionFields},
-        {new: true} 
-      ).then(auction => {
-      console.log('auction => ',auction);
-      res.json(auction)})
-    .catch(err => console.log(err));
+        { _id: req.params.id },
+        { $set: auctionFields },
+        { new: true }
+      )
+        .then(auction => {
+          // console.log('auction => ', auction);
+          res.json(auction);
+        })
+        .catch(err => console.log(err));
     }
-  })
+  });
   // // console.log('auct => ', auct);
   // Auction.findOneAndUpdate({_id: req.params.id }, auctionFields)
   //   .then(auction => {
