@@ -22,6 +22,7 @@ export const getOrganizations = () => dispatch => {
     );
 };
 
+
 // Organization loading
 export const setOrganizationLoading = () => {
   return {
