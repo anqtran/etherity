@@ -10,6 +10,8 @@ import TextFieldGroup from '../common/TextFieldGroup';
 
 import Img from 'react-image';
 
+import socketIOClient from "socket.io-client";
+
 class Auction extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +20,9 @@ class Auction extends Component {
       auction: {},
       loading: '',
       currentPrice: '',
-      errors: {}
+      errors: {},
+      response: false,
+      endpoint: "http://192.168.1.67:3000/"
     };
 
     this.onChange = this.onChange.bind(this);
@@ -26,6 +30,10 @@ class Auction extends Component {
   }
 
   componentDidMount() {
+    const {endpoint} = this.state;
+    const socket = socketIOClient(endpoint);
+    socket.on("FromAPI", data => this.setState({ response: data }));
+
     this.props.getAuction(this.props.match.params.id);
     const { auction, loading, error } = this.props.auction;
     this.setState({
@@ -53,7 +61,7 @@ class Auction extends Component {
   }
 
   render() {
-    const { auction, errors, loading } = this.state;
+    const { auction, errors, loading, response } = this.state;
 
     const currentDate = new Date();
     const year =
@@ -66,7 +74,7 @@ class Auction extends Component {
       auctionContent = <Spinner />;
     } else {
       // console.log(auction);
-
+      <p>  {response} </p>
       auctionContent = (
         <div>
           <div className="row">
