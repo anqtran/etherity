@@ -3,7 +3,7 @@ import React from 'react';
 export default () => {
   return (
     <footer className="bg-dark text-white mt-5 p-4 text-center">
-      Copyright &copy; {new Date().getFullYear()} Crypto Chari by A&K
+      Copyright &copy; {new Date().getFullYear()} Crypto Chari by 209
     </footer>
   );
 };
