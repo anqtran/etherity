@@ -46,6 +46,10 @@ router.get('/:id', (req, res) => {
     //   'description'
     // ])
     .then(auction => {
+<<<<<<< HEAD
+=======
+      // console.log('get auction by id => ', auction);
+>>>>>>> 5f5e4934789671eb1029f80166d73a37375f2436
       res.json(auction);
     })
     .catch(err =>
@@ -98,7 +102,7 @@ router.post(
       shortDescription: req.body.shortDescription,
       basePrice: req.body.basePrice
     });
-    console.log(newAuction);
+    // console.log(newAuction);
     newAuction
       .save()
       .then(auction => res.json(auction))
@@ -154,25 +158,27 @@ router.post(
 
 router.put('/bid/:id', (req, res) => {
   console.log('bid update');
-  const time = new Date.now();
+  const time = new Date();
   var auctionFields = {
     buyer: req.body.buyer,
     highestbid: req.body.highestbid,
     dateLastBid: time
   };
-  Auction.findOne({_id: req.params.id}). then (auction => {
-    console.log('auction1 => ',auction);
-    if(auction) {
+  Auction.findOne({ _id: req.params.id }).then(auction => {
+    // console.log('auction1 => ', auction);
+    if (auction) {
       Auction.findOneAndUpdate(
-        {_id: req.params.id},
-        {$set: auctionFields},
-        {new: true} 
-      ).then(auction => {
-      console.log('auction => ',auction);
-      res.json(auction)})
-    .catch(err => console.log(err));
+        { _id: req.params.id },
+        { $set: auctionFields },
+        { new: true }
+      )
+        .then(auction => {
+          // console.log('auction => ', auction);
+          res.json(auction);
+        })
+        .catch(err => console.log(err));
     }
-  })
+  });
   // // console.log('auct => ', auct);
   // Auction.findOneAndUpdate({_id: req.params.id }, auctionFields)
   //   .then(auction => {

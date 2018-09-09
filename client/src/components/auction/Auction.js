@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Countdown from './Countdown.js';
+
 import Spinner from '../common/Spinner';
 import { getAuction, updateAuction } from '../../actions/auctionActions';
 import web3 from '../../web3';
@@ -14,6 +14,9 @@ import TextFieldGroup from '../common/TextFieldGroup';
 import Img from 'react-image';
 
 import socketIOClient from 'socket.io-client';
+import Moment from 'react-moment';
+// import Countdown from 'react-sexy-countdown';
+import Countdown from './Countdown.js';
 
 
 class Auction extends Component {
@@ -77,6 +80,9 @@ class Auction extends Component {
         currentDate.getMonth() === 11 && currentDate.getDate() > 23
           ? currentDate.getFullYear() + 1
           : currentDate.getFullYear();
+      const endDate = new Date(auction.date);
+      endDate.setDate(endDate.getDate() + 7);
+      console.log('year => ', year);
       auctionContent = (
         <div>
           <div className="row">
@@ -102,7 +108,8 @@ class Auction extends Component {
           </div>
           <div className="row">
             <div className="col-lg-6 col-md-4 col-8">
-              <Countdown date={`${year}-12-24T00:00:00`} />
+              <Countdown date={`${endDate}`} />
+
               {auction.buyer ? (
                 <div>Highest Donator: {auction.buyer} </div>
               ) : null}
