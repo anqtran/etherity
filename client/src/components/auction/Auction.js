@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import Spinner from '../common/Spinner';
 import { getAuction, updateAuction } from '../../actions/auctionActions';
 import web3 from '../../web3';
-import auction from '../../auction';
+import auctionContract from '../../auction';
+
 
 import TextFieldGroup from '../common/TextFieldGroup';
 
@@ -17,6 +18,7 @@ import Moment from 'react-moment';
 // import Countdown from 'react-sexy-countdown';
 import Countdown from './Countdown.js';
 
+
 class Auction extends Component {
   constructor(props) {
     super(props);
@@ -26,7 +28,6 @@ class Auction extends Component {
       loading: '',
       currentPrice: '',
       errors: {},
-      status: '',
       response: false,
       endpoint: 'http://192.168.1.67:3000/'
     };
@@ -62,10 +63,11 @@ class Auction extends Component {
       highestbid: this.state.currentPrice,
       buyer: auction.buyer
     };
+    const bid_id = this.props.auction.auction._id;
     const accounts = await web3.eth.getAccounts();
-    await auction.methods.bid(auction._id).send({
+    await auctionContract.methods.increaseBid(bid_id).send({
       from: accounts[0],
-      value: this.sate.currentPrice
+      value: this.state.currentPrice
     }).then( res => {
     this.props.updateAuction(bidData, this.props.history);
   });
