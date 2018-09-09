@@ -12,9 +12,12 @@ contract Auction{
 	event HighestBidIncreased(address bidder, uint256 amount);
 	event BidSubmission(address indexed sender, uint256 amount);
 
-	public {
-		auctionEnd = now + _biddingTime;
-	}
+	
+    constructor(
+        address _beneficiary
+    ) public {
+        beneficiary = _beneficiary;
+    }
 
 	mapping(address => uint) balances;
 	mapping (address => uint) public bids;
@@ -51,6 +54,7 @@ contract Auction{
 
 			msg.sender.transfer(amount);
 		}
+
 
 		/// @dev Allows to send a bid to the auction
 		/// @param receiver address Bid will be assigned to this address
