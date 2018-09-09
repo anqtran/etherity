@@ -102,19 +102,12 @@ router.post(
 // @desc    new bid from user
 // @access  Public
 router.put('/bid/:auction_id', (req, res) => {
-  console.log('req.body => ', req.body);
-  Auction.findById(req.params.auction_id)
-    .then(auction => {
-      if (req.body.highestbid <= auction.bid.highestbid) {
-        return res.json({ biderrors: 'Bid cannot be lower than current bid' });
-      }
-      const newBid = {
-        buyer: req.body.buyer,
-        highestbid: req.body.highestbid
-      };
-      auction.bid = newBid;
-      auction.save().then(auction => res.json(auction));
-    })
+  const time = new Date();
+  Auction.findOneAndUpdate(
+    {buyer: req.body.buyer},
+    {highestbid: req.body.highestbid},
+    {dateLastBid: time}
+    ).then(auction => res.json(auction))
     .catch(err => console.log(err));
 });
 module.exports = router;
