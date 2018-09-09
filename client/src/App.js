@@ -10,6 +10,9 @@ import store from './store';
 
 import PrivateRoute from './components/common/PrivateRoute';
 
+
+
+
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
@@ -29,6 +32,9 @@ import NotFound from './components/not-found/NotFound';
 import Auction from './components/auction/Auction';
 import Auctions from './components/auctions/Auctions';
 import AddAuction from './components/add-auction/AddAuction';
+
+
+import Organizations from './components/organizations/Organizations';
 
 import './App.css';
 
@@ -60,12 +66,14 @@ class App extends Component {
         <Router>
           <div className="App">
             <Navbar />
+           
             <Route exact path="/" component={Landing} />
             <div className="container">
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/profiles" component={Profiles} />
               <Route exact path="/auctions" component={Auctions} />
+              <Route exact path="/organizations" component={Organizations} />
               <Route exact path="/profile/:id" component={Profile} />
               <Route exact path="/auction/:id" component={Auction} />
               <Switch>

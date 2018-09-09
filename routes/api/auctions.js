@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
-
 const User = require('../../models/User');
 const Auction = require('../../models/Auction');
 
@@ -46,7 +45,6 @@ router.get('/:id', (req, res) => {
     //   'description'
     // ])
     .then(auction => {
-      // console.log('get auction by id => ', auction);
       res.json(auction);
     })
     .catch(err =>
@@ -82,9 +80,8 @@ router.post('/create', (req, res) => {
 router.post(
   '/add',
   passport.authenticate('jwt', { session: false }),
-  (req, res) => {
+  async(req, res) => {
     const { errors, isValid } = validateAuctionInput(req.body);
-    console.log('after validate');
     // Check Validation
     if (!isValid) {
       // If any errors, send 400 with errors object
@@ -101,10 +98,13 @@ router.post(
       basePrice: req.body.basePrice,
       avaialable: true
     });
-    // console.log(newAuction);
+    
     newAuction
       .save()
-      .then(auction => res.json(auction))
+      .then(auction =>{
+        console.log('auction.id => ',auction.id);
+        res.json(auction)
+      })
       .catch(err => console.log(err));
   }
 );
