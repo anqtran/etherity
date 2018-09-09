@@ -34,14 +34,9 @@ class Auction extends Component {
   }
 
   componentDidMount() {
-    // const { endpoint } = this.state;
-    // const socket = socketIOClient(endpoint);
-    // socket.on('FromAPI', data => this.setState({ response: data }));
 
     this.props.getAuction(this.props.match.params.id);
-    // const { auction, loading, error } = this.props.auction;
 
-    // console.log('did mount props => ', this.props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -57,7 +52,7 @@ class Auction extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  onSubmit(e) {
+  onSubmit = async(e) => {
     e.preventDefault();
     const { auction } = this.props.auction;
     const bidData = {
@@ -65,26 +60,19 @@ class Auction extends Component {
       highestbid: this.state.currentPrice,
       buyer: auction.buyer
     };
-    console.log('bidData =>', bidData);
-
+    const accounts = await web3.eth.getAccounts();
     this.props.updateAuction(bidData, this.props.history);
   }
 
   render() {
     const { auction, errors, loading } = this.props.auction;
 
-    // console.log('auction => ', auction);
 
     let auctionContent;
-    // console.log(auction);
     if (auction === null || loading || auction === '') {
       auctionContent = <Spinner />;
     } else {
-      console.log(auction);
-      // <p> {response} </p>;
       const currentDate = new Date(auction.date);
-      // console.log('auction.date => ', auction.date);
-      // console.log('currentData => ', currentDate);
       const year =
         currentDate.getMonth() === 11 && currentDate.getDate() > 23
           ? currentDate.getFullYear() + 1

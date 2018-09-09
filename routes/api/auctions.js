@@ -46,7 +46,6 @@ router.get('/:id', (req, res) => {
     //   'description'
     // ])
     .then(auction => {
-      console.log('get auction by id => ', auction);
       res.json(auction);
     })
     .catch(err =>
@@ -84,7 +83,6 @@ router.post(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const { errors, isValid } = validateAuctionInput(req.body);
-    console.log('after validate');
     // Check Validation
     if (!isValid) {
       // If any errors, send 400 with errors object

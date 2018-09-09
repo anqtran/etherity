@@ -1,23 +1,16 @@
 pragma solidity ^0.4.0;
 contract Auction{
 	struct Bid{
-		address latestBidder;
-		uint256 latestBid;
-		uint auctionEnd;
+		address highestBidder;
+		uint256 highestBid;
+		address beneficiary;
 	}
+	mapping (string => Bid) biddingItems;
+	
 
-	address public beneficiary;
-	bool ended;
 	event AuctionEnded(address winner, uint256 amount);
 	event HighestBidIncreased(address bidder, uint256 amount);
 	event BidSubmission(address indexed sender, uint256 amount);
-
-	
-    constructor(
-        address _beneficiary
-    ) public {
-        beneficiary = _beneficiary;
-    }
 
 	mapping(address => uint) balances;
 	mapping (address => uint) public bids;
@@ -25,66 +18,37 @@ contract Auction{
 
 	modifier validPurchase() {
 		require(msg.value > 0);
+		_;
 	}
 
 
-	function bid() public payable {
-		require(now <= auctionEnd,
-			"Bidding already ended!")
+	function addBid (string _id, address _beneficiary) public {
+		Bid memory newBid = Bid(0, 0, _beneficiary);
+		biddingItems[_id] = newBid;
+	}
+	
 
-		require(msg.value > latestBid);
-
-		if (latestBidder != 0x0) {
-			latestBidder.transfer(latestBid);
+	function bid(string _itemId) public payable {
+		Bid memory currentBid = biddingItems[_itemId];
+		if (currentBid.highestBidder != 0x0) {
+			currentBid.highestBidder.transfer(currentBid.highestBid);
 		}
 
 		// if (highestBidder != 0) {
 			//           pendingReturns[highestBidder] += highestBid;
 			//       }
 
-			latestBidder = msg.sender;
-			latestBid = msg.value;
-		}
-		emit HighestBidIncreased(msg.sender, msg.value);
-
-		function refund(uint256 amount) public {
-			require(amount > 0 && amount <= balances[msg.sender]);
-
-			balances[msg.sender] -= amount;
-
-			msg.sender.transfer(amount);
+			currentBid.highestBidder = msg.sender;
+			currentBid.highestBid = msg.value;
+			emit HighestBidIncreased(msg.sender, msg.value);
 		}
 
 
-		/// @dev Allows to send a bid to the auction
-		/// @param receiver address Bid will be assigned to this address
-		function release(address receiver) public payable
-		validPurchase()
-		returns (uint amount)
+		function release(string _itemId) public payable
 		{
-			if(hasReachedEndBlock()) {
-				finalizeAuction();
-				return;
-			}
-
-			amount = msg.value;
-			wallet.transfer(amount);
-			bids[receiver] += amount;
-			totalReceived = totalReceived + amount;
-			BidSubmission(receiver, amount);
-
-
-
-			function auctionEnd() public{
-				//conditions
-				require(now >= auctionEnd, "Bidding not yet ended.");
-
-				//effects
-				ended = true;
-				emit AuctionEnded(highestBidder, highestBid);
-
-				//interaction
-				beneficiary.transfer(highestBid);
-			}
-
+			Bid memory endedBid = biddingItems[_itemId];
+			if (endedBid.highestBid == 0) return;
+			uint256 amount = endedBid.highestBid;
+			endedBid.beneficiary.transfer(amount);
 		}
+}
