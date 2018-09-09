@@ -36,6 +36,7 @@ router.get('/:id', (req, res) => {
     // .populate('seller', ['name', 'avatar', 'email'])
     // .populate('organization', ['name'])
     .then(auction => {
+      console.log('get auction by id');
       res.json(auction);
     })
     .catch(err =>
