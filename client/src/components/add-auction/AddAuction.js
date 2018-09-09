@@ -41,7 +41,7 @@ class AddAuction extends Component {
     this.props.getOrganizations();
   }
 
-  onSubmit = async (e) =>{
+  onSubmit = async e => {
     e.preventDefault();
     const auctData = {
       name: this.state.name,
@@ -52,24 +52,22 @@ class AddAuction extends Component {
       images: this.state.images
     };
 
-      const data = {
-        _id: "5b94ed576b63214bae2f15bb",
-        organization: '0x02f8cf3e8243e5f3f8f5d24fa0e965e62517939b'
-      }
-      const accounts = await web3.eth.getAccounts();
-      await auction.methods.addBid(data._id, data.organization).send({
-      from: accounts[0]
-      }).then(res => {
-            this.props.addAuction(auctData, this.props.history);
-
+    const data = {
+      _id: '5b94ed576b63214bae2f15bb',
+      organization: '0x02f8cf3e8243e5f3f8f5d24fa0e965e62517939b'
+    };
+    const accounts = await web3.eth.getAccounts();
+    await auction.methods
+      .addBid(data._id, data.organization)
+      .send({
+        from: accounts[0]
+      })
+      .then(res => {
+        this.props.addAuction(auctData, this.props.history);
       });
 
-    
     // this.props.addAuction(auctData, this.props.history);
-
-    
-
-  }
+  };
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
