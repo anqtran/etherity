@@ -17,7 +17,6 @@ class Auction extends Component {
     this.state = {
       auction: {},
       loading: '',
-      seller: {},
       currentPrice: '',
       errors: {}
     };
@@ -29,11 +28,9 @@ class Auction extends Component {
   componentDidMount() {
     this.props.getAuction(this.props.match.params.id);
     const { auction, loading, error } = this.props.auction;
-    const seller = this.props.auction.seller;
     this.setState({
       auction,
       loading,
-      seller,
       errors: error
     });
   }
@@ -96,14 +93,14 @@ class Auction extends Component {
           <div className="row">
             <div className="col-lg-6 col-md-4 col-8">
               <Countdown date={`${year}-12-24T00:00:00`} />
-              {auction.bid ? (
-                <div>Highest Donator: {auction.bid.buyer} </div>
+              {auction.buyer ? (
+                <div>Highest Donator: {auction.buyer} </div>
               ) : null}
             </div>
             <div className="col-lg-6 col-md-4 col-8">
               <div className="row">
-                <h4>Highest Bid</h4>
-                {/* <h3>{auction.bid.highestPrice}</h3> */}
+                <h4>Highest Bid :    </h4>
+                { <h4> {auction.highestPrice ? auction.highestPrice : 0 }</h4> }
               </div>
               <div className="row">
                 <label>

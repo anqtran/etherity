@@ -27,33 +27,30 @@ const AuctionSchema = new Schema({
     required: true
   },
 
+
   organization: {
     type: Schema.Types.ObjectId,
     ref: 'organizations',
     required: true
   },
 
-  images: [
-    {
-      type: String
-    }
-  ],
+  images:
+  {
+    type: String
+  },
   basePrice: {
     type: Number,
     required: true
   },
-  bid: {
-    buyer: {
-      type: Schema.Types.ObjectId,
-      ref: 'users'
-    },
-    highestbid: {
-      type: Number
-    },
-    date: {
-      type: Date,
-      default: Date.now
-    }
+  buyer: {
+    type: Schema.Types.ObjectId,
+    ref: 'users'
+  },
+  highestbid: {
+    type: Number
+  },
+  dateLastBid: {
+    type: Date
   },
   date: {
     type: Date,

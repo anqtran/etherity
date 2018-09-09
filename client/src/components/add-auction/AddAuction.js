@@ -37,7 +37,6 @@ class AddAuction extends Component {
   }
 
   componentDidMount() {
-    // console.log('Here is props ' + this.props);
     this.props.getOrganizations();
   }
 
@@ -49,13 +48,8 @@ class AddAuction extends Component {
       basePrice: this.state.basePrice,
       description: this.state.description,
       organization: this.state.organization,
-      // seller: this.state.user,
       images: this.state.images
-      // bid: this.state.bid,
-      // time: this.state.time
     };
-    // console.log('Here is sending)');
-    // console.log(auctData);
     this.props.addAuction(auctData);
     
   }
@@ -78,7 +72,6 @@ class AddAuction extends Component {
         return;
       });
     }
-    // console.log(options);
 
     return (
       <div className="add-auction">
