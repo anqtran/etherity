@@ -101,46 +101,59 @@ router.post(
 // @route   POST api/auctions/bid/:user_id
 // @desc    new bid from user
 // @access  Public
-router.put(
-  '/bid/:auction_id/:',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    const { errors, isValid } = validateAuctionInput(req.body);
-    console.log('after validate');
-    // Check Validation
-    if (!isValid) {
-      // If any errors, send 400 with errors object
-      return res.status(400).json(errors);
-    }
-    console.log('there is no error to bid auction');
+// router.put(
+//   '/bid/:auction_id/:',
+//   passport.authenticate('jwt', { session: false }),
+//   (req, res) => {
+//     const { errors, isValid } = validateAuctionInput(req.body);
+//     console.log('after validate');
+//     // Check Validation
+//     if (!isValid) {
+//       // If any errors, send 400 with errors object
+//       return res.status(400).json(errors);
+//     }
+//     console.log('there is no error to bid auction');
 
-    // Get Fields
-    const auctionFields = {};
+//     // Get Fields
+//     const auctionFields = {};
 
-    if (req.user.id) auctionFiedls.buyer = req.user.id;
-    if (req.body.price) auctionFields.highestbid = req.body.price;
-    auctionFields.datLastBid = new Date.now();
+//     if (req.user.id) auctionFiedls.buyer = req.user.id;
+//     if (req.body.price) auctionFields.highestbid = req.body.price;
+//     auctionFields.datLastBid = new Date.now();
 
-    Auction.findOne({ seller: req.body.id }).then(auction => {
-      if (auction) {
-        // Update
-        Auction.findOneAndUpdate(
-          { seller: req.body.id },
-          { $set: auctionFields },
-          { new: true }
-        ).then(auction => res.json(auction));
-      }
-    });
-  }
-);
+//     Auction.findOne({ seller: req.body.id }).then(auction => {
+//       if (auction) {
+//         // Update
+//         Auction.findOneAndUpdate(
+//           { seller: req.body.id },
+//           { $set: auctionFields },
+//           { new: true }
+//         ).then(auction => res.json(auction));
+//       }
+//     });
+//   }
+// );
 
-// (req, res) => {
-//   const time = new Date();
-//   Auction.findOneAndUpdate(
-//     {buyer: req.body.buyer},
-//     {highestbid: req.body.highestbid},
-//     {dateLastBid: time}
-//     ).then(auction => res.json(auction))
-//     .catch(err => console.log(err));
-// });
+// // (req, res) => {
+// //   const time = new Date();
+// //   Auction.findOneAndUpdate(
+// //     {buyer: req.body.buyer},
+// //     {highestbid: req.body.highestbid},
+// //     {dateLastBid: time}
+// //     ).then(auction => res.json(auction))
+// //     .catch(err => console.log(err));
+// // });
+
+router.put('/bid/:auction_id', (req, res) => {
+  const time = new Date();
+  var auctionFields = {
+    buyer: req.body.buyer,
+    highestbid: req.body.highestbid,
+    dateLastBid: time
+  };
+  console.log('auct => ', auct);
+  Auction.findOneAndUpdate({ _id: req.params.id }, auctionFields)
+    .then(auction => res.json(auction))
+    .catch(err => console.log(err));
+});
 module.exports = router;

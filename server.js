@@ -10,6 +10,13 @@ const organizations = require('./routes/api/organizations');
 
 const app = express();
 
+//realtime database
+
+const http = require("http");
+const socketIo = require("socket.io");
+const axios = require("axios");
+
+
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -32,6 +39,24 @@ app.use(passport.initialize());
 
 // Passport Config
 require('./config/passport')(passport);
+
+
+// Handle realtime database
+
+const server = http.createServer(app);
+const io = socketIo(server); // < Interesting!
+
+const getApiAndEmit = async socket => {
+  try {
+    const res = await axios.get(
+      "https://localhost:3000/api/auctions/:id"
+    ); // Getting the data from DarkSky
+    socket.emit("FromAPI", res.data); // Emitting a new message. It will be consumed by the client
+  } catch (error) {
+    console.error(`Error: ${error.code}`);
+  }
+};
+
 
 // Use Routes
 app.use('/api/users', users);
