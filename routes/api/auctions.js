@@ -102,10 +102,15 @@ router.post(
 // @access  Public
 router.put('/bid/:auction_id', (req, res) => {
   const time = new Date();
+  var auctionFields = {
+    buyer: req.body.buyer,
+    highestbid: req.body.highestbid,
+    dateLastBid: time
+  }
+  console.log('auct => ',auct);
   Auction.findOneAndUpdate(
-    {buyer: req.body.buyer},
-    {highestbid: req.body.highestbid},
-    {dateLastBid: time}
+    { _id : req.params.id},
+    auctionFields
     ).then(auction => res.json(auction))
     .catch(err => console.log(err));
 });

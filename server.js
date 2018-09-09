@@ -51,7 +51,7 @@ const getApiAndEmit = async socket => {
     const res = await axios.get(
       "https://localhost:3000/api/auctions/:id"
     ); // Getting the data from DarkSky
-    socket.emit("FromAPI", res); // Emitting a new message. It will be consumed by the client
+    socket.emit("FromAPI", res.data); // Emitting a new message. It will be consumed by the client
   } catch (error) {
     console.error(`Error: ${error.code}`);
   }

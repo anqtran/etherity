@@ -41,6 +41,7 @@ class Auction extends Component {
       loading,
       errors: error
     });
+    console.log('auction => ',auction);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -108,7 +109,7 @@ class Auction extends Component {
             <div className="col-lg-6 col-md-4 col-8">
               <div className="row">
                 <h4>Highest Bid :    </h4>
-                { <h4> {auction.highestPrice ? auction.highestPrice : 0 }</h4> }
+                { <h4> {auction.highestbid ? auction.highestbid : 0 }</h4> }
               </div>
               <div className="row">
                 <label>
