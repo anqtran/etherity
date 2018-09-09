@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 
 import Spinner from '../common/Spinner';
 import { getAuction, updateAuction } from '../../actions/auctionActions';
+import web3 from '../../web3';
+import auction from '../../auction';
+
 
 import TextFieldGroup from '../common/TextFieldGroup';
 
@@ -14,6 +17,7 @@ import socketIOClient from 'socket.io-client';
 import Moment from 'react-moment';
 // import Countdown from 'react-sexy-countdown';
 import Countdown from './Countdown.js';
+
 
 class Auction extends Component {
   constructor(props) {
