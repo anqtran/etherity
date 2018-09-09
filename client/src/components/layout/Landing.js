@@ -18,7 +18,7 @@ render(){
             <div className="container">
               <div className="row">
                 <div className="col-md-12 text-center">
-                  <h1 className="display-3 mb-4">WORLD CHARITY FUNDING</h1>
+                  <h1 className="display-3 mb-4">Etherity</h1>
                   <p className="lead mb-3">
                     {' '}
                     Create a world network where everyone can be a part of bigger
