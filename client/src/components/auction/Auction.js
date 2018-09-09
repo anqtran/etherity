@@ -36,9 +36,7 @@ class Auction extends Component {
   }
 
   componentDidMount() {
-
     this.props.getAuction(this.props.match.params.id);
-
   }
 
   componentWillReceiveProps(nextProps) {
@@ -54,7 +52,7 @@ class Auction extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  onSubmit = async(e) => {
+  onSubmit = async e => {
     e.preventDefault();
     const { auction } = this.props.auction;
     const bidData = {
@@ -63,16 +61,18 @@ class Auction extends Component {
       buyer: auction.buyer
     };
     const accounts = await web3.eth.getAccounts();
-    await auction.methods.bid(auction._id).send({
-      from: accounts[0],
-      value: this.sate.currentPrice
-    }).then( res => {
-    this.props.updateAuction(bidData, this.props.history);
-  });
-}
+    await auction.methods
+      .bid(auction._id)
+      .send({
+        from: accounts[0],
+        value: this.sate.currentPrice
+      })
+      .then(res => {
+        this.props.updateAuction(bidData, this.props.history);
+      });
+  };
   render() {
     const { auction, errors, loading } = this.props.auction;
-
 
     let auctionContent;
     if (auction === null || loading || auction === '') {
@@ -99,47 +99,50 @@ class Auction extends Component {
           <div className="row">
             <Img src={auction.images} />
           </div>
+
           <div className="row">
             <div className="col-lg-6 col-md-4 col-8">
-              <h3>{auction.name}</h3>
+              <h2>{auction.name}</h2>
 
               <p>{auction.description} </p>
 
               <p>Donated by {auction.seller}</p>
               <p>To {auction.organization}</p>
+
+              <h4>Starting Price: {auction.basePrice} </h4>
             </div>
-          </div>
-          <div className="row">
+
             <div className="col-lg-6 col-md-4 col-8">
               <Countdown date={`${endDate}`} />
 
               {auction.buyer ? (
                 <div>Highest Donator: {auction.buyer} </div>
               ) : null}
-            </div>
-            <div className="col-lg-6 col-md-4 col-8">
-              <div className="row">
-                <h4>Highest Bid : </h4>
-                {<h4> {auction.highestbid ? auction.highestbid : 0}</h4>}
-              </div>
-              <div className="row">
-                <form onSubmit={this.onSubmit}>
-                  <label>
-                    <TextFieldGroup
-                      placeholder="Bid Price"
-                      name="currentPrice"
-                      type="number"
-                      value={this.state.currentPrice}
-                      onChange={this.onChange}
-                      // error={errors.currentPrice}
+
+              <div className="col-lg-6 col-md-4 col-8">
+                <div className="row">
+                  <h4>Highest Bid : </h4>
+                  {<h3> {auction.highestbid ? auction.highestbid : 0}</h3>}
+                </div>
+                <div className="row">
+                  <form onSubmit={this.onSubmit}>
+                    <label>
+                      <TextFieldGroup
+                        placeholder="Bid Price"
+                        name="currentPrice"
+                        type="number"
+                        value={this.state.currentPrice}
+                        onChange={this.onChange}
+                        // error={errors.currentPrice}
+                      />
+                    </label>
+                    <input
+                      type="submit"
+                      value="Donate"
+                      className="btn btn-secondary btn-block mt-4"
                     />
-                  </label>
-                  <input
-                    type="submit"
-                    value="Donate"
-                    className="btn btn-secondary btn-block mt-4"
-                  />
-                </form>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
