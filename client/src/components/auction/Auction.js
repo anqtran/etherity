@@ -64,9 +64,13 @@ class Auction extends Component {
       buyer: auction.buyer
     };
     const accounts = await web3.eth.getAccounts();
+    await auction.methods.bid(auction._id).send({
+      from: accounts[0],
+      value: this.sate.currentPrice
+    }).then( res => {
     this.props.updateAuction(bidData, this.props.history);
-  }
-
+  });
+}
   render() {
     const { auction, errors, loading } = this.props.auction;
 
