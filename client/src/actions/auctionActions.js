@@ -12,20 +12,13 @@ import {
   UPDATE_AUCTION
 } from './types';
 
-
-
-      
-
-
-
-
-
 // Add Auction
 export const addAuction = (auctionData, history) => dispatch => {
   dispatch(clearErrors());
-  console.log("addAuction backend");
+  console.log('addAuction backend');
   axios
     .post('/api/auctions/add', auctionData)
+
     // .then(res =>
     //   dispatch({
     //     type: ADD_AUCTION,
@@ -41,7 +34,6 @@ export const addAuction = (auctionData, history) => dispatch => {
     //   history.push('/dashboard')
     // } )
     .then(res => {
-      
       history.push('/dashboard');
     })
     .catch(err =>

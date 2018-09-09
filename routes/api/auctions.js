@@ -95,7 +95,8 @@ router.post(
       images: req.body.images,
       description: req.body.description,
       shortDescription: req.body.shortDescription,
-      basePrice: req.body.basePrice
+      basePrice: req.body.basePrice,
+      avaialable: true
     });
     
     newAuction
