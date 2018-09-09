@@ -90,10 +90,10 @@ export const deleteAuction = id => dispatch => {
 
 // Update Bid
 export const updateAuction = (auctionData, history) => dispatch => {
-  // dispatch(clearErrors());
-
+  dispatch(clearErrors());
+  console.log('updateAuction');
   axios
-    .put('/api/auctions/updateAuction', auctionData)
+    .put(`/api/auctions/bid/${auctionData.id}`, auctionData)
     .then(res => history.push('/auctions'))
     .catch(err =>
       dispatch({

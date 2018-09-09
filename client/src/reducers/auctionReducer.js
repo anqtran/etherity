@@ -9,8 +9,8 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  auction: {},
-  auctions: [],
+  auction: null,
+  auctions: null,
   loading: false
 };
 

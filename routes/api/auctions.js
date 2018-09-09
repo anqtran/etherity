@@ -35,8 +35,18 @@ router.get('/:id', (req, res) => {
   Auction.findById(req.params.id)
     // .populate('seller', ['name', 'avatar', 'email'])
     // .populate('organization', ['name'])
+    // .populate('auction', [
+    //   'id',
+    //   'name',
+    //   'seller',
+    //   'buyer',
+    //   'basePrice',
+    //   'highestbid',
+    //   'organization',
+    //   'description'
+    // ])
     .then(auction => {
-      console.log('get auction by id');
+      console.log('get auction by id => ', auction);
       res.json(auction);
     })
     .catch(err =>
@@ -145,13 +155,14 @@ router.post(
 // // });
 
 router.put('/bid/:auction_id', (req, res) => {
+  console.log('bid update');
   const time = new Date();
   var auctionFields = {
     buyer: req.body.buyer,
     highestbid: req.body.highestbid,
     dateLastBid: time
   };
-  console.log('auct => ', auct);
+  // console.log('auct => ', auct);
   Auction.findOneAndUpdate({ _id: req.params.id }, auctionFields)
     .then(auction => res.json(auction))
     .catch(err => console.log(err));

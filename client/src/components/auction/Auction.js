@@ -17,7 +17,7 @@ class Auction extends Component {
     super(props);
 
     this.state = {
-      auction: {},
+      current_auction: {},
       loading: '',
       currentPrice: '',
       errors: {},
@@ -30,18 +30,14 @@ class Auction extends Component {
   }
 
   componentDidMount() {
-    const { endpoint } = this.state;
-    const socket = socketIOClient(endpoint);
-    socket.on('FromAPI', data => this.setState({ response: data }));
+    // const { endpoint } = this.state;
+    // const socket = socketIOClient(endpoint);
+    // socket.on('FromAPI', data => this.setState({ response: data }));
 
     this.props.getAuction(this.props.match.params.id);
-    const { auction, loading, error } = this.props.auction;
-    this.setState({
-      auction,
-      loading,
-      errors: error
-    });
-    console.log('auction => ', auction);
+    // const { auction, loading, error } = this.props.auction;
+
+    // console.log('did mount props => ', this.props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -59,29 +55,36 @@ class Auction extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-
+    const { auction } = this.props.auction;
     const bidData = {
-      id: this.state.auction.id,
-      price: this.state.currentPrice
+      id: auction._id,
+      highestbid: this.state.currentPrice,
+      buyer: auction.buyer
     };
+    console.log('bidData =>', bidData);
+
     this.props.updateAuction(bidData, this.props.history);
   }
 
   render() {
-    const { auction, errors, loading, response } = this.state;
+    const { auction, errors, loading } = this.props.auction;
 
-    const currentDate = new Date();
-    const year =
-      currentDate.getMonth() === 11 && currentDate.getDate() > 23
-        ? currentDate.getFullYear() + 1
-        : currentDate.getFullYear();
+    // console.log('auction => ', auction);
+
     let auctionContent;
     // console.log(auction);
     if (auction === null || loading || auction === '') {
       auctionContent = <Spinner />;
     } else {
-      // console.log(auction);
-      <p> {response} </p>;
+      console.log(auction);
+      // <p> {response} </p>;
+      const currentDate = new Date(auction.date);
+      // console.log('auction.date => ', auction.date);
+      // console.log('currentData => ', currentDate);
+      const year =
+        currentDate.getMonth() === 11 && currentDate.getDate() > 23
+          ? currentDate.getFullYear() + 1
+          : currentDate.getFullYear();
       auctionContent = (
         <div>
           <div className="row">
@@ -118,25 +121,24 @@ class Auction extends Component {
                 {<h4> {auction.highestbid ? auction.highestbid : 0}</h4>}
               </div>
               <div className="row">
-                <label>
-                  <h4>Go Bid!!!</h4>
-                  <TextFieldGroup
-                    placeholder="Bid Price"
-                    name="currentPrice"
-                    type="number"
-                    value={this.state.currentPrice}
-                    onChange={this.onChange}
-                    error={errors.currentPrice}
+                <form onSubmit={this.onSubmit}>
+                  <label>
+                    <TextFieldGroup
+                      placeholder="Bid Price"
+                      name="currentPrice"
+                      type="number"
+                      value={this.state.currentPrice}
+                      onChange={this.onChange}
+                      // error={errors.currentPrice}
+                    />
+                  </label>
+                  <input
+                    type="submit"
+                    value="Donate"
+                    className="btn btn-secondary btn-block mt-4"
                   />
-                </label>
+                </form>
               </div>
-
-              <Link
-                to={`/bid/${auction.handle}/${this.state.currentPrice}`}
-                className="btn btn-secondary"
-              >
-                Donate
-              </Link>
             </div>
           </div>
         </div>
