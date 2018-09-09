@@ -156,7 +156,7 @@ router.post(
 
 router.put('/bid/:auction_id', (req, res) => {
   console.log('bid update');
-  const time = new Date();
+  const time = new Date.now();
   var auctionFields = {
     buyer: req.body.buyer,
     highestbid: req.body.highestbid,
