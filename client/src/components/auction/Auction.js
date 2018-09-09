@@ -105,6 +105,7 @@ class Auction extends Component {
             <div className="col-lg-6 col-md-4 col-8">
               <h3>{auction.name}</h3>
 
+              <p> Starting Price : {auction.basePrice} </p>
               <p>{auction.description} </p>
 
               <p>Donated by {auction.seller}</p>
