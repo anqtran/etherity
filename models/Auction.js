@@ -27,15 +27,13 @@ const AuctionSchema = new Schema({
     required: true
   },
 
-
   organization: {
     type: Schema.Types.ObjectId,
     ref: 'organizations',
     required: true
   },
 
-  images:
-  {
+  images: {
     type: String
   },
   basePrice: {

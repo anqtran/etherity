@@ -7,7 +7,8 @@ import {
   GET_AUCTIONS,
   GET_AUCTION,
   AUCTION_LOADING,
-  DELETE_AUCTION
+  DELETE_AUCTION,
+  UPDATE_AUCTION
 } from './types';
 
 // Add Auction
@@ -78,6 +79,21 @@ export const deleteAuction = id => dispatch => {
         payload: id
       })
     )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+// Update Bid
+export const updateAuction = (auctionData, history) => dispatch => {
+  // dispatch(clearErrors());
+
+  axios
+    .put('/api/auctions/updateAuction', auctionData)
+    .then(res => history.push('/auctions'))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,

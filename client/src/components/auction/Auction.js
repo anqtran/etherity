@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Countdown from './Countdown.js';
 import Spinner from '../common/Spinner';
-import { getAuction } from '../../actions/auctionActions';
+import { getAuction, updateAuction } from '../../actions/auctionActions';
 
 import TextFieldGroup from '../common/TextFieldGroup';
 
@@ -50,6 +50,12 @@ class Auction extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+
+    const bidData = {
+      id: this.state.auction.id,
+      price: this.state.currentPrice
+    };
+    this.props.updateAuction(bidData, this.props.history);
   }
 
   render() {
@@ -99,8 +105,8 @@ class Auction extends Component {
             </div>
             <div className="col-lg-6 col-md-4 col-8">
               <div className="row">
-                <h4>Highest Bid :    </h4>
-                { <h4> {auction.highestPrice ? auction.highestPrice : 0 }</h4> }
+                <h4>Highest Bid : </h4>
+                {<h4> {auction.highestPrice ? auction.highestPrice : 0}</h4>}
               </div>
               <div className="row">
                 <label>
@@ -142,6 +148,7 @@ class Auction extends Component {
 
 Auction.propTypes = {
   getAuction: PropTypes.func.isRequired,
+  updateAuction: PropTypes.func.isRequired,
   auction: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -153,5 +160,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getAuction }
+  { getAuction, updateAuction }
 )(Auction);
