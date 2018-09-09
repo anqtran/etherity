@@ -8,7 +8,6 @@ import { getAuction, updateAuction } from '../../actions/auctionActions';
 import web3 from '../../web3';
 import auction from '../../auction';
 
-
 import TextFieldGroup from '../common/TextFieldGroup';
 
 import Img from 'react-image';
@@ -17,7 +16,6 @@ import socketIOClient from 'socket.io-client';
 import Moment from 'react-moment';
 // import Countdown from 'react-sexy-countdown';
 import Countdown from './Countdown.js';
-
 
 class Auction extends Component {
   constructor(props) {
@@ -28,6 +26,7 @@ class Auction extends Component {
       loading: '',
       currentPrice: '',
       errors: {},
+      status: '',
       response: false,
       endpoint: 'http://192.168.1.67:3000/'
     };

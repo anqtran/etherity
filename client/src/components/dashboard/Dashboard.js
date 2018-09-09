@@ -36,8 +36,8 @@ class Dashboard extends Component {
               Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
             </p>
             <ProfileActions />
-            <Experience experience={profile.experience} />
-            <Education education={profile.education} />
+            {/* <Experience experience={profile.experience} />
+            <Education education={profile.education} /> */}
             {/* <Auction auction={profile.auction} /> */}
             <div style={{ marginBottom: '60px' }} />
             <button

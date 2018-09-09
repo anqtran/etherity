@@ -21,6 +21,7 @@ class Auctions extends Component {
       auctionItems = <Spinner />;
     } else {
       if (auctions.length > 0) {
+        console.log(auctions);
         auctionItems = auctions.map(auction => (
           <AuctionItem key={auction._id} auction={auction} />
         ));
