@@ -4,7 +4,7 @@ img {
 
 .landing {
   position: relative;
-  background: url('./img/giphygif.gif') no-repeat;
+  background: url('./img/landing.jpg') no-repeat;
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -14,6 +14,7 @@ img {
 
 .landing-inner {
   padding-top: 80px;
+
 }
 
 .card-form {
