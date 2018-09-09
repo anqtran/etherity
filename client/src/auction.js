@@ -119,4 +119,6 @@ const abi =[
 		"stateMutability": "view",
 		"type": "function"
 	}
-]
+];
+
+export default new web3.eth.Contract(abi, address);

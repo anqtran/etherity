@@ -1,5 +1,6 @@
 import axios from 'axios';
-
+import web3 from '../web3';
+import auction from '../auction';
 import {
   ADD_AUCTION,
   GET_ERRORS,
@@ -11,10 +12,18 @@ import {
   UPDATE_AUCTION
 } from './types';
 
+
+
+      
+
+
+
+
+
 // Add Auction
 export const addAuction = (auctionData, history) => dispatch => {
   dispatch(clearErrors());
-
+  console.log("addAuction backend");
   axios
     .post('/api/auctions/add', auctionData)
     // .then(res =>
@@ -23,7 +32,18 @@ export const addAuction = (auctionData, history) => dispatch => {
     //     payload: res.data
     //   })
     // )
-    .then(res => history.push('/dashboard'))
+    // .then(function(res) {
+    //   console.log('getback');
+    //   console.log(res);
+    //   const data = res.data;
+    //   console.log(data);
+
+    //   history.push('/dashboard')
+    // } )
+    .then(res => {
+      
+      history.push('/dashboard');
+    })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
