@@ -5,7 +5,7 @@ import { GET_ORGANIZATIONS, ORGANIZATION_LOADING } from './types';
 // Get all organizations
 export const getOrganizations = () => dispatch => {
   dispatch(setOrganizationLoading());
-
+  console.log('Getting');
   axios
     .get('/api/organizations/all')
     .then(res =>
@@ -21,7 +21,6 @@ export const getOrganizations = () => dispatch => {
       })
     );
 };
-
 
 // Organization loading
 export const setOrganizationLoading = () => {

@@ -35,7 +35,7 @@ router.post('/new', (req, res) => {
 // @access  Public
 router.get('/all', (req, res) => {
   const errors = {};
-
+  console.log('here at backend');
   Organization.find()
     .populate('organization', ['name', '._id'])
     .then(organizations => {
@@ -43,7 +43,7 @@ router.get('/all', (req, res) => {
       //   errors.noorganization = 'There are no organizations';
       //   return res.status(404).json(errors);
       // }
-
+      console.log(organizations);
       res.json(organizations);
     })
     .catch(err => res.status(404).json({ profile: 'There are no profiles' }));
