@@ -50,8 +50,7 @@ class AddAuction extends Component {
       organization: this.state.organization,
       images: this.state.images
     };
-    this.props.addAuction(auctData);
-    
+    this.props.addAuction(auctData, this.props.history);
   }
 
   onChange(e) {

@@ -12,17 +12,18 @@ import {
 } from './types';
 
 // Add Auction
-export const addAuction = auctionData => dispatch => {
+export const addAuction = (auctionData, history) => dispatch => {
   dispatch(clearErrors());
 
   axios
     .post('/api/auctions/add', auctionData)
-    .then(res =>
-      dispatch({
-        type: ADD_AUCTION,
-        payload: res.data
-      })
-    )
+    // .then(res =>
+    //   dispatch({
+    //     type: ADD_AUCTION,
+    //     payload: res.data
+    //   })
+    // )
+    .then(res => history.push('/dashboard'))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
