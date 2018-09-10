@@ -33,7 +33,6 @@ class OrganizationItem extends Component {
             <p>{organization.description} </p>
           </div>
           <div className="col-md-4 d-none d-md-block">
-            <h5>Website : {organization.website}</h5>
             <p> Phone Number : {phoneNumber} </p>
             <p> Email : {organization.email} </p>
             <p> Etherum Wallet: {organization.wallet} </p>
