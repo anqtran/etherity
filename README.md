@@ -3,7 +3,7 @@ Do you have any concern about charity?
 
 Have you ever had valuable items that no longer used and wanted to turn them into something meaningful ?
 
-So that when eternity comes to place to serve the purpose. Eternity is a web based bidding application which connects sellers and buyers with the highest integrity and security. All of the money raised from the transactions will be transfered to the organizations selected by the sellers.
+So that when eternity comes to place to serve the purpose. Eternity is a web based bidding application which connects sellers and buyers with the highest integrity and security. All of the money raised from the transactions will be transferred to the organizations selected by the sellers.
 
 Etherity relies on smart contract to handle all of the actions between users on the internet. Ethereum smart contract allows everybody using the app without any worries of scamming and clarity.
 
