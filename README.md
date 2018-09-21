@@ -65,6 +65,9 @@ npm run dev
 
 [Luan Nguyen](https://github.com/luannguyen2603)
 
+[Duc Le](https://github.com/Ducle141)	
+ 
+[Loc Le](https://github.com/ln60)
 
 ### Time Dedicated 
 
