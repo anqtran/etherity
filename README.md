@@ -24,6 +24,8 @@ npm install
 ```
 Change your database configuration in the `.env` file.
 
+Please make sure you have installed Metamask Chrome Extension.
+
 Running the app concurrently:
 ```
 npm run dev
